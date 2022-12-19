@@ -31,5 +31,6 @@ public class Athlete {
     private double targetWeight;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainer_id")
+    @Column(nullable = false)
     private Trainer trainer;
 }

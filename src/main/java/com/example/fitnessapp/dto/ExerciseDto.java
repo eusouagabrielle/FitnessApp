@@ -13,5 +13,6 @@ public class ExerciseDto {
     private int sets;
     private int repetitions;
     private int weight;
+    private int calorie;
     private List <Routine> routines;
 }

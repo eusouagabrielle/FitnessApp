@@ -27,6 +27,8 @@ public class Exercise {
     private int repetitions;
     @Column(nullable = false)
     private int weight;
+    @Column
+    private int calorie;
     @ManyToMany(mappedBy = "exercises")
     private List<Routine> routines;
 }

@@ -42,6 +42,7 @@ public class ExerciseServiceImp implements ExerciseService {
         exercise.setSets(dto.getSets());
         exercise.setRepetitions(dto.getRepetitions());
         exercise.setWeight(dto.getWeight());
+        exercise.setCalorie(dto.getCalorie());
         exercise.setRoutines(dto.getRoutines());
 
         Exercise newExercise = exerciseRepository.save(exercise);
@@ -53,6 +54,7 @@ public class ExerciseServiceImp implements ExerciseService {
         response.setSets(newExercise.getSets());
         response.setRepetitions(newExercise.getRepetitions());
         response.setWeight(newExercise.getWeight());
+        response.setCalorie(newExercise.getCalorie());
         response.setRoutines(newExercise.getRoutines());
         return response;
     }
@@ -67,6 +69,7 @@ public class ExerciseServiceImp implements ExerciseService {
         exercise.setSets(dto.getSets());
         exercise.setRepetitions(dto.getRepetitions());
         exercise.setWeight(dto.getWeight());
+        exercise.setCalorie(dto.getCalorie());
         exercise.setRoutines(dto.getRoutines());
 
         Exercise updatedExercise = exerciseRepository.save(exercise);
@@ -89,6 +92,7 @@ public class ExerciseServiceImp implements ExerciseService {
         dto.setSets(exercise.getSets());
         dto.setRepetitions(exercise.getRepetitions());
         dto.setWeight(exercise.getWeight());
+        dto.setCalorie(exercise.getCalorie());
         dto.setRoutines(exercise.getRoutines());
         return dto;
     }
