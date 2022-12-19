@@ -31,7 +31,6 @@ public class UserController {
     }
 
     @GetMapping(value = "/{username}")
-    @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<UserDto> getUserByID(@PathVariable("username") String username){
         UserDto optionalUser = userServiceImpl.getUser(username);
 
@@ -50,7 +49,6 @@ public class UserController {
     }
 
     @PutMapping(value = "/update/{username}")
-    @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<UserDto> updateUser(@PathVariable("username") String username, @RequestBody UserDto dto) {
 
         userServiceImpl.updateUser(username, dto);
@@ -66,7 +64,6 @@ public class UserController {
     }
 
     @GetMapping(value = "/authorities/{username}")
-    @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
         return ResponseEntity.ok().body(userServiceImpl.getAuthorities(username));
     }
