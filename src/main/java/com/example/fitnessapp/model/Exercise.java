@@ -2,6 +2,8 @@ package com.example.fitnessapp.model;
 
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,7 @@ import java.util.List;
 @Table(name = "exercises")
 public class Exercise {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String name;
@@ -29,6 +31,9 @@ public class Exercise {
     private int weight;
     @Column
     private int calorie;
-    @ManyToMany(mappedBy = "exercises")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "exercises",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
     private List<Routine> routines;
 }

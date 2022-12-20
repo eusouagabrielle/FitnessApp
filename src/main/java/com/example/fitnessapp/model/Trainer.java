@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +27,7 @@ public class Trainer {
     @Column(nullable = false)
     private int age;
     private int yearsOfExperience;
-    @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Athlete> athletes = new ArrayList<Athlete>();
+    @OneToMany(mappedBy = "trainer",
+            cascade = CascadeType.ALL)
+    private List<Athlete> athletes;
 }

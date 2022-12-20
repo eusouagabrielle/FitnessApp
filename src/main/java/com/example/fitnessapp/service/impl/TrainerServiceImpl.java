@@ -27,8 +27,6 @@ public class TrainerServiceImpl implements TrainerService {
         return trainers.stream().map(trainer -> mapToDto(trainer)).collect(Collectors.toList());
     }
 
-
-
     @Override
     public TrainerDto getTrainerById(Long id) {
         Trainer trainer = trainerRepository.findById(id).orElseThrow(()->

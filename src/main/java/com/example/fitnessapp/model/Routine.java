@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "routines")
 public class Routine {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String name;

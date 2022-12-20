@@ -36,7 +36,6 @@ public class TrainerController {
     }
 
     @PostMapping("/trainer")
-    @RolesAllowed({"ROLE_TRAINER"})
     public ResponseEntity<TrainerDto> createTrainer(@RequestBody TrainerDto dto){
         return new ResponseEntity<>(trainerService.createTrainer(dto), HttpStatus.CREATED);
     }
@@ -49,7 +48,7 @@ public class TrainerController {
     }
 
     @DeleteMapping("/delete/trainer/{id}")
-    @RolesAllowed({"ROLE_TRAINER"})
+    @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<String> deleteTrainer(@PathVariable("id") Long id){
         trainerService.deleteTrainer(id);
         return new ResponseEntity<>("Trainer delete", HttpStatus.OK);

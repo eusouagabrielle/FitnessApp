@@ -36,7 +36,6 @@ public class AthleteController {
     }
 
     @PostMapping("/athlete")
-    @RolesAllowed({"ROLE_ATHLETE"})
     public ResponseEntity<AthleteDto> createAthlete(@RequestBody AthleteDto dto){
         return new ResponseEntity<>(athleteService.createAthlete(dto), HttpStatus.CREATED);
     }
@@ -49,7 +48,7 @@ public class AthleteController {
     }
 
     @DeleteMapping("/delete/athlete/{id}")
-    @RolesAllowed({"ROLE_ATHLETE"})
+    @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<String> deleteAthlete(@PathVariable("id") Long id){
         athleteService.deleteAthlete(id);
         return new ResponseEntity<>("Athlete delete", HttpStatus.OK);

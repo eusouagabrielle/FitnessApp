@@ -52,10 +52,16 @@ VALUES ('1','3'),
        ('3','3'),
        ('3','2');
 
-INSERT INTO users (username, password) VALUES ('gabrielle', '$2a$12$JCHbUV6Gy/d0fZiODfPqE.ERVvMtXmZT3Hx6Wzd0ti/daWzvjtTt6');
-INSERT INTO users (username, password) VALUES ('bas', '$2a$12$j3Lz996X8OV0MNBzq.a/POmvVm/A.VKsg./2WxFEthlBdVjKap39C');
-INSERT INTO users (username, password) VALUES ('jan', '$2a$12$iplmHdqUfpx2uEicVGQ.mect.1k2BCm9Xmv.hDgN3Zy5n.PabQu4u');
+INSERT INTO users (username, password)
+VALUES ('gabrielle', '$2a$12$JCHbUV6Gy/d0fZiODfPqE.ERVvMtXmZT3Hx6Wzd0ti/daWzvjtTt6'),
+       ('bas', '$2a$12$j3Lz996X8OV0MNBzq.a/POmvVm/A.VKsg./2WxFEthlBdVjKap39C'),
+       ('jan', '$2a$12$iplmHdqUfpx2uEicVGQ.mect.1k2BCm9Xmv.hDgN3Zy5n.PabQu4u'),
+       ('matheus', '$2a$12$2NWANZbVSfVUUIUdcMl0K.F0nTDSqtjScBZWzEoEz/qOP712G0gRm');
 
-INSERT INTO authorities (id, username, authority) VALUES (01, 'gabrielle', 'ROLE_DEFAULT');
-INSERT INTO authorities (id, username, authority) VALUES (02, 'bas', 'ROLE_ATHLETE');
-INSERT INTO authorities (id, username, authority) VALUES (03, 'jan', 'ROLE_TRAINER');
+INSERT INTO authorities (id,
+                         username,
+                         authority)
+VALUES (01, 'gabrielle', 'ROLE_DEFAULT'),
+       (02, 'bas', 'ROLE_ATHLETE'),
+       (03, 'jan', 'ROLE_TRAINER'),
+       (04, 'matheus', 'ROLE_ADMIN');

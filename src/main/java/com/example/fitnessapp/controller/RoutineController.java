@@ -34,7 +34,7 @@ public class RoutineController {
         return ResponseEntity.ok(routineService.getRoutineById(id));
     }
 
-    @PostMapping("routine")
+    @PostMapping("/routine")
     @RolesAllowed({"ROLE_TRAINER"})
     public ResponseEntity<RoutineDto> createRoutine(@RequestBody RoutineDto dto){
         return new ResponseEntity<>(routineService.createRoutine(dto), HttpStatus.CREATED);
