@@ -37,16 +37,27 @@ public class UserController {
         return ResponseEntity.ok().body(optionalUser);
     }
 
-    @PostMapping(value = "/users")
-    public ResponseEntity <UserDto> creatUser (@RequestBody UserDto user){
+    @PostMapping(value = "/user/trainer")
+    public ResponseEntity <UserDto> creatTrainer (@RequestBody UserDto user){
 
         String newUsername = userServiceImpl.createUser(user);
-        userServiceImpl.addAuthority(newUsername, "ROLE_DEFAULT");
+        userServiceImpl.addAuthority(newUsername, "ROLE_TRAINER");
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
                 .buildAndExpand(newUsername).toUri();
         return ResponseEntity.created(location).build();
     }
+    @PostMapping(value = "/user/athlete")
+    public ResponseEntity <UserDto> creatAthlete (@RequestBody UserDto user){
+
+        String newUsername = userServiceImpl.createUser(user);
+        userServiceImpl.addAuthority(newUsername, "ROLE_ATHLETE");
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
+                .buildAndExpand(newUsername).toUri();
+        return ResponseEntity.created(location).build();
+    }
+    
 
     @PutMapping(value = "/update/{username}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("username") String username, @RequestBody UserDto dto) {

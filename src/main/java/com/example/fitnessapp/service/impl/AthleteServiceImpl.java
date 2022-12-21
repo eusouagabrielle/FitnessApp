@@ -4,11 +4,17 @@ package com.example.fitnessapp.service.impl;
 import com.example.fitnessapp.dto.AthleteDto;
 import com.example.fitnessapp.exception.AthleteNotFoundException;
 import com.example.fitnessapp.model.Athlete;
+import com.example.fitnessapp.model.FileDocument;
 import com.example.fitnessapp.repository.AthleteRepository;
+import com.example.fitnessapp.repository.FileRepository;
 import com.example.fitnessapp.service.AthleteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,10 +22,12 @@ import java.util.stream.Collectors;
 public class AthleteServiceImpl implements AthleteService {
 
     private AthleteRepository athleteRepository;
+    private FileRepository document;
 
     @Autowired
-    public AthleteServiceImpl(AthleteRepository athleteRepository) {
+    public AthleteServiceImpl(AthleteRepository athleteRepository, FileRepository document) {
         this.athleteRepository = athleteRepository;
+        this.document = document;
     }
 
     @Override
@@ -88,6 +96,15 @@ public class AthleteServiceImpl implements AthleteService {
         athleteRepository.delete(athlete);
     }
 
+    @Override
+    public ResponseEntity<byte[]> fileDownload(String fileName, HttpServletRequest request) {
+        FileDocument doc = document.findByFileName(fileName);
+        MediaType contentType = MediaType.APPLICATION_PDF;
+
+        String mimeType = request.getServletContext().getMimeType(doc.getFileName());
+        return ResponseEntity.ok().contentType(contentType).header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment;fileName=" + doc.getFileName()).body(doc.getDocFile());
+    }
 
     private AthleteDto mapToDto (Athlete athlete){
         AthleteDto dto = new AthleteDto();

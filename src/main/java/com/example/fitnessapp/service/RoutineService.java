@@ -11,4 +11,5 @@ public interface RoutineService {
     RoutineDto getRoutineById(Long id);
     RoutineDto updateRoutine(RoutineDto dto, Long id);
     void deleteRoutine(Long id);
+    Integer getRoutinesCalories(Long id);
 }

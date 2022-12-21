@@ -1,7 +1,5 @@
 package com.example.fitnessapp.controller;
 
-
-
 import com.example.fitnessapp.dto.AthleteDto;
 import com.example.fitnessapp.service.AthleteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -53,4 +52,12 @@ public class AthleteController {
         athleteService.deleteAthlete(id);
         return new ResponseEntity<>("Athlete delete", HttpStatus.OK);
     }
+
+    @GetMapping("/downloads/{fileName}")
+    @RolesAllowed({"ROLE_ATHLETE"})
+    ResponseEntity<byte[]> downLoadProgressReport(@PathVariable String fileName, HttpServletRequest request) {
+
+        return athleteService.fileDownload(fileName, request);
+    }
+
 }

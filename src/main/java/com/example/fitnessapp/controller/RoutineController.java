@@ -27,6 +27,10 @@ public class RoutineController {
     public ResponseEntity<List<RoutineDto>> getRoutines(){
         return new ResponseEntity<>(routineService.getAllRoutines(), HttpStatus.OK);
     }
+    @GetMapping("/routine/calories")
+    public ResponseEntity<Integer> getCalories(@PathVariable Long id){
+        return ResponseEntity.ok(routineService.getRoutinesCalories(id));
+    }
 
     @GetMapping("/routine/{id}")
     @RolesAllowed({"ROLE_TRAINER", "ROLE_ATHLETE"})

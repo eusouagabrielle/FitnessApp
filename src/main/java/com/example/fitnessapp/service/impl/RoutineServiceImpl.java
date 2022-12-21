@@ -74,6 +74,11 @@ public class RoutineServiceImpl implements RoutineService {
         routineRepository.delete(routine);
     }
 
+    @Override
+    public Integer getRoutinesCalories(Long id){
+        return routineRepository.findRoutineCalories(id);
+    }
+
     private RoutineDto mapToDto(Routine routine){
         RoutineDto dto = new RoutineDto();
         dto.setId(routine.getId());

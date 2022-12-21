@@ -1,15 +1,21 @@
 package com.example.fitnessapp.controller;
 
 
+import com.example.fitnessapp.dto.FileUploadResponse;
 import com.example.fitnessapp.dto.TrainerDto;
+import com.example.fitnessapp.model.FileDocument;
 import com.example.fitnessapp.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.annotation.security.RolesAllowed;
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/workout")
@@ -52,5 +58,18 @@ public class TrainerController {
     public ResponseEntity<String> deleteTrainer(@PathVariable("id") Long id){
         trainerService.deleteTrainer(id);
         return new ResponseEntity<>("Trainer delete", HttpStatus.OK);
+    }
+
+    @PostMapping("/fileUpload")
+    @RolesAllowed({"ROLE_TRAINER"})
+    public FileUploadResponse fileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+
+        FileDocument fileDocument = trainerService.uploadFileDocument(file);
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloads/")
+                .path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
+
+        String contentType = file.getContentType();
+
+        return new FileUploadResponse(fileDocument.getFileName(), url, contentType );
     }
 }

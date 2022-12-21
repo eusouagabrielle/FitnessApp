@@ -12,9 +12,8 @@ import javax.persistence.*;
 @Table(name = "authorities")
 public class Authority implements GrantedAuthority {
 
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -26,5 +25,4 @@ public class Authority implements GrantedAuthority {
         this.username = username;
         this.authority = authority;
     }
-
 }

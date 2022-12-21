@@ -1,5 +1,6 @@
 package com.example.fitnessapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,6 @@ public class User {
 
     @Column(nullable = false, length = 255)
     private String password;
-
     @OneToMany(
             targetEntity = Authority.class,
             mappedBy = "username",
