@@ -27,7 +27,7 @@ public class RoutineController {
     public ResponseEntity<List<RoutineDto>> getRoutines(){
         return new ResponseEntity<>(routineService.getAllRoutines(), HttpStatus.OK);
     }
-    @GetMapping("/routine/calories")
+    @GetMapping("/routine/calories/{id}")
     public ResponseEntity<Integer> getCalories(@PathVariable Long id){
         return ResponseEntity.ok(routineService.getRoutinesCalories(id));
     }

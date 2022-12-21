@@ -71,7 +71,7 @@ public class TrainerServiceImpl implements TrainerService {
     @Override
     public TrainerDto updateTrainer(TrainerDto dto, Long id) {
         Trainer trainer = trainerRepository.findById(id).orElseThrow(() ->
-                new AthleteNotFoundException("Trainer could not be updated"));
+                new TrainerNotFoundException("Trainer could not be updated"));
 
         trainer.setName(dto.getName());
         trainer.setEmail(dto.getEmail());
