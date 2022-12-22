@@ -31,9 +31,15 @@ public class AthleteController {
        return ResponseEntity.ok(athleteService.getAthleteById(id));
     }
 
-    @GetMapping("/{trainerId}/athletes")
+    @GetMapping("/athletes/{name}")
     @RolesAllowed({"ROLE_ATHLETE", "ROLE_TRAINER"})
-    public List<AthleteDto> getAthletesByTrainerId(@PathVariable(value = "trainerId") Long id){
+    public ResponseEntity<AthleteDto> getAnAthleteByName(@PathVariable(value = "name")String name){
+        return ResponseEntity.ok(athleteService.getAthleteByName(name));
+    }
+
+    @GetMapping("/{trainer_id}/athletes")
+    @RolesAllowed({"ROLE_ATHLETE", "ROLE_TRAINER"})
+    public List<AthleteDto> getAthletesByTrainerId(@PathVariable(value = "trainer_id") Long id){
         return athleteService.getAthletesByTrainersId(id);
     }
 

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 
 public interface RoutineRepository extends JpaRepository<Routine, Long> {
-    @Query(value = "select sum(e.calorie) from exercises as e inner join routine_exercises re on e.id = re.exercise_id " +
+    @Query(value = "select sum(e.calories) from exercises as e inner join routine_exercises re on e.id = re.exercise_id " +
             "where re.routine_id = ?", nativeQuery = true)
     Integer findRoutineCalories(Long id);
 }

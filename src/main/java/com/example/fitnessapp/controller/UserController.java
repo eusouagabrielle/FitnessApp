@@ -23,7 +23,7 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/users")
     @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List <UserDto> userDtos = userServiceImpl.getUsers();
@@ -31,6 +31,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{username}")
+    @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<UserDto> getUserByID(@PathVariable("username") String username){
         UserDto optionalUser = userServiceImpl.getUser(username);
 
@@ -92,7 +93,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping(value = "/deleteAuthorities/{username}/{authority}")
+    @DeleteMapping(value = "/delete/authorities/{username}/{authority}")
     @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
         userServiceImpl.removeAuthority(username, authority);

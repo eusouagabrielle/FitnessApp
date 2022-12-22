@@ -30,7 +30,7 @@ public class Exercise {
     @Column(nullable = false)
     private int weight;
     @Column
-    private int calorie;
+    private int calories;
     @JsonIgnore
     @ManyToMany(mappedBy = "exercises",
             cascade = CascadeType.ALL,
