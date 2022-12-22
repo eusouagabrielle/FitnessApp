@@ -1,7 +1,6 @@
 package com.example.fitnessapp.dto;
 
 import com.example.fitnessapp.model.Athlete;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

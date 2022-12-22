@@ -2,6 +2,7 @@ package com.example.fitnessapp.controller;
 
 import com.example.fitnessapp.dto.AthleteDto;
 import com.example.fitnessapp.service.AthleteService;
+import com.example.fitnessapp.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,12 @@ import java.util.List;
 public class AthleteController {
 
     private final AthleteService athleteService;
+    private final FileService fileService;
 
     @Autowired
-    public AthleteController(AthleteService athleteService) {
+    public AthleteController(AthleteService athleteService, FileService fileService) {
         this.athleteService = athleteService;
+        this.fileService = fileService;
     }
 
     @GetMapping("/athlete/{id}")
@@ -57,7 +60,7 @@ public class AthleteController {
     @RolesAllowed({"ROLE_ATHLETE"})
     ResponseEntity<byte[]> downLoadProgressReport(@PathVariable String fileName, HttpServletRequest request) {
 
-        return athleteService.fileDownload(fileName, request);
+        return fileService.fileDownload(fileName, request);
     }
 
 }

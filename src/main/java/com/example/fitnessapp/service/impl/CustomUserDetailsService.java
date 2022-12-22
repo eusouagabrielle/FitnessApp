@@ -2,7 +2,6 @@ package com.example.fitnessapp.service.impl;
 
 import com.example.fitnessapp.dto.UserDto;
 import com.example.fitnessapp.model.Authority;
-import com.example.fitnessapp.service.impl.UserServiceImpl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

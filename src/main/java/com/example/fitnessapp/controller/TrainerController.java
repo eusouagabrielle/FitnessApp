@@ -4,6 +4,7 @@ package com.example.fitnessapp.controller;
 import com.example.fitnessapp.dto.FileUploadResponse;
 import com.example.fitnessapp.dto.TrainerDto;
 import com.example.fitnessapp.model.FileDocument;
+import com.example.fitnessapp.service.FileService;
 import com.example.fitnessapp.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,12 @@ import java.util.Objects;
 public class TrainerController {
 
     private final TrainerService trainerService;
+    private final FileService fileService;
 
     @Autowired
-    public TrainerController(TrainerService trainerService) {
+    public TrainerController(TrainerService trainerService, FileService fileService) {
         this.trainerService = trainerService;
+        this.fileService = fileService;
     }
 
 
@@ -64,7 +67,7 @@ public class TrainerController {
     @RolesAllowed({"ROLE_TRAINER"})
     public FileUploadResponse fileUpload(@RequestParam("file") MultipartFile file) throws IOException {
 
-        FileDocument fileDocument = trainerService.uploadFileDocument(file);
+        FileDocument fileDocument = fileService.uploadFileDocument(file);
         String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloads/")
                 .path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
 

@@ -1,9 +1,13 @@
 package com.example.fitnessapp.dto;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AthleteDto {
 
     private Long id;
@@ -19,4 +23,6 @@ public class AthleteDto {
     private double startWeight;
 
     private double targetWeight;
+
+
 }

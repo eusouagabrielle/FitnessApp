@@ -35,4 +35,20 @@ public class Athlete {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;
+
+    public Athlete(Long id,
+                   String name,
+                   String email,
+                   String phoneNumber,
+                   int age,
+                   double startWeight,
+                   double targetWeight) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.startWeight = startWeight;
+        this.targetWeight = targetWeight;
+    }
 }

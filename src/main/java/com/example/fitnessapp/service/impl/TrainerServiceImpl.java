@@ -1,40 +1,28 @@
 package com.example.fitnessapp.service.impl;
 
 import com.example.fitnessapp.dto.TrainerDto;
-import com.example.fitnessapp.exception.AthleteNotFoundException;
 import com.example.fitnessapp.exception.TrainerNotFoundException;
-import com.example.fitnessapp.model.FileDocument;
 import com.example.fitnessapp.model.Trainer;
-import com.example.fitnessapp.repository.FileRepository;
 import com.example.fitnessapp.repository.TrainerRepository;
 import com.example.fitnessapp.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.InvalidPropertiesFormatException;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 @Service
 public class TrainerServiceImpl implements TrainerService {
 
     private TrainerRepository trainerRepository;
-    private FileRepository document;
 
     @Autowired
-    public TrainerServiceImpl(TrainerRepository trainerRepository, FileRepository document) {
+    public TrainerServiceImpl(TrainerRepository trainerRepository) {
         this.trainerRepository = trainerRepository;
-        this.document = document;
     }
 
     @Override
     public List<TrainerDto> getAllTrainers() {
         List<Trainer> trainers = trainerRepository.findAll();
-        return trainers.stream().map(trainer -> mapToDto(trainer)).collect(Collectors.toList());
+        return trainers.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
     @Override
@@ -90,23 +78,6 @@ public class TrainerServiceImpl implements TrainerService {
         Trainer trainer = trainerRepository.findById(id).orElseThrow(()->
                 new TrainerNotFoundException("Trainer could not be delete"));
         trainerRepository.delete(trainer);
-    }
-
-    @Override
-    public FileDocument uploadFileDocument(MultipartFile file) throws IOException {
-        MediaType uploadType = MediaType.parseMediaType(file.getContentType());
-        String correctMediaType = "application/pdf";
-
-        if (!correctMediaType.equals(uploadType.toString())){
-            throw new InvalidPropertiesFormatException("Wrong file type, PDF required");
-        }else {
-            String name = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-            FileDocument fileDocument = new FileDocument();
-            fileDocument.setFileName(name);
-            fileDocument.setDocFile(file.getBytes());
-            document.save(fileDocument);
-            return fileDocument;
-        }
     }
 
     private TrainerDto mapToDto(Trainer trainer) {
