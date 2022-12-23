@@ -45,8 +45,22 @@ public class TrainerController {
     }
 
     @PostMapping("/trainer")
+    @RolesAllowed({"ROLE_TRAINER"})
     public ResponseEntity<TrainerDto> createTrainer(@RequestBody TrainerDto dto){
         return new ResponseEntity<>(trainerService.createTrainer(dto), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/fileUpload")
+    @RolesAllowed({"ROLE_TRAINER"})
+    public FileUploadResponse fileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+
+        FileDocument fileDocument = fileService.uploadFileDocument(file);
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloads/")
+                .path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
+
+        String contentType = file.getContentType();
+
+        return new FileUploadResponse(fileDocument.getFileName(), url, contentType );
     }
 
     @PutMapping("/update/trainer/{id}")
@@ -63,16 +77,4 @@ public class TrainerController {
         return new ResponseEntity<>("Trainer delete", HttpStatus.OK);
     }
 
-    @PostMapping("/fileUpload")
-    @RolesAllowed({"ROLE_TRAINER"})
-    public FileUploadResponse fileUpload(@RequestParam("file") MultipartFile file) throws IOException {
-
-        FileDocument fileDocument = fileService.uploadFileDocument(file);
-        String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloads/")
-                .path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
-
-        String contentType = file.getContentType();
-
-        return new FileUploadResponse(fileDocument.getFileName(), url, contentType );
-    }
 }

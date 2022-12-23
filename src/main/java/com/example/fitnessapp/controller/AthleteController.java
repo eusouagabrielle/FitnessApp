@@ -43,7 +43,15 @@ public class AthleteController {
         return athleteService.getAthletesByTrainersId(id);
     }
 
+    @GetMapping("/downloads/{fileName}")
+    @RolesAllowed({"ROLE_ATHLETE"})
+    ResponseEntity<byte[]> downLoadProgressReport(@PathVariable String fileName, HttpServletRequest request) {
+
+        return fileService.fileDownload(fileName, request);
+    }
+
     @PostMapping("/athlete")
+    @RolesAllowed({"ROLE_ATHLETE"})
     public ResponseEntity<AthleteDto> createAthlete(@RequestBody AthleteDto dto){
         return new ResponseEntity<>(athleteService.createAthlete(dto), HttpStatus.CREATED);
     }
@@ -60,13 +68,6 @@ public class AthleteController {
     public ResponseEntity<String> deleteAthlete(@PathVariable("id") Long id){
         athleteService.deleteAthlete(id);
         return new ResponseEntity<>("Athlete delete", HttpStatus.OK);
-    }
-
-    @GetMapping("/downloads/{fileName}")
-    @RolesAllowed({"ROLE_ATHLETE"})
-    ResponseEntity<byte[]> downLoadProgressReport(@PathVariable String fileName, HttpServletRequest request) {
-
-        return fileService.fileDownload(fileName, request);
     }
 
 }

@@ -30,7 +30,7 @@ public class UserController {
         return ResponseEntity.ok().body(userDtos);
     }
 
-    @GetMapping(value = "/{username}")
+    @GetMapping(value = "/user/{username}")
     @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<UserDto> getUserByID(@PathVariable("username") String username){
         UserDto optionalUser = userServiceImpl.getUser(username);
@@ -76,6 +76,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/authorities/{username}")
+    @RolesAllowed({"ROLE_ADMIN"})
     public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
         return ResponseEntity.ok().body(userServiceImpl.getAuthorities(username));
     }
